@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Developing Data Products</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Developing Data Products">
+  <meta name="author" content="Joel Lieser">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Developing Data Products</h1>
+    <h2></h2>
+    <p>Joel Lieser<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <article data-timings="">
+    <p>This is the Slidify portion of the class Project.</p>
+
+<div style='text-align: center;'>
+    <img height='560' src='../assets/img/ddp.PNG' />
+</div>
+
+<p>I chose to attempt to use the lyrics to identify the genre of songs</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <article data-timings="">
+    <p>The project took the lyrics of 1383 songs from various locations, including:</p>
+
+<ul>
+<li><p><a href="http://www.rollingstone.com/music/lists/the-500-greatest-songs-of-all-time-20110407">http://www.rollingstone.com/music/lists/the-500-greatest-songs-of-all-time-20110407</a></p></li>
+<li><p><a href="http://www.stereogum.com/24391/vh1s_100_greatest_hiphop_songs-2/list/">http://www.stereogum.com/24391/vh1s_100_greatest_hiphop_songs-2/list/</a></p></li>
+<li><p><a href="http://tasteofcountry.com/top-100-country-songs/">http://tasteofcountry.com/top-100-country-songs/</a></p></li>
+</ul>
+
+<p>(amongst others)</p>
+
+<p>Then downloaded the lyrics from the api at <a href="http://www.chartlyrics.com/api.aspx">http://www.chartlyrics.com/api.aspx</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <article data-timings="">
+    <p>A number of &quot;standard&quot; words were identified and filtered out:</p>
+
+<pre><code>##   [1] &quot;a&quot;         &quot;about&quot;     &quot;after&quot;     &quot;all&quot;       &quot;also&quot;     
+##   [6] &quot;an&quot;        &quot;and&quot;       &quot;another&quot;   &quot;any&quot;       &quot;are&quot;      
+##  [11] &quot;as&quot;        &quot;at&quot;        &quot;be&quot;        &quot;because&quot;   &quot;been&quot;     
+##  [16] &quot;before&quot;    &quot;being&quot;     &quot;between&quot;   &quot;both&quot;      &quot;but&quot;      
+##  [21] &quot;by&quot;        &quot;came&quot;      &quot;can&quot;       &quot;come&quot;      &quot;could&quot;    
+##  [26] &quot;did&quot;       &quot;do&quot;        &quot;does&quot;      &quot;each&quot;      &quot;else&quot;     
+##  [31] &quot;for&quot;       &quot;from&quot;      &quot;get&quot;       &quot;got&quot;       &quot;had&quot;      
+##  [36] &quot;has&quot;       &quot;have&quot;      &quot;he&quot;        &quot;his&quot;       &quot;her&quot;      
+##  [41] &quot;hers&quot;      &quot;here&quot;      &quot;how&quot;       &quot;we&quot;        &quot;ll&quot;       
+##  [46] &quot;my&quot;        &quot;s&quot;         &quot;m&quot;         &quot;n&quot;         &quot;t&quot;        
+##  [51] &quot;d&quot;         &quot;i&quot;         &quot;if&quot;        &quot;in&quot;        &quot;into&quot;     
+##  [56] &quot;is&quot;        &quot;it&quot;        &quot;its&quot;       &quot;just&quot;      &quot;like&quot;     
+##  [61] &quot;me&quot;        &quot;make&quot;      &quot;many&quot;      &quot;might&quot;     &quot;of&quot;       
+##  [66] &quot;on&quot;        &quot;only&quot;      &quot;or&quot;        &quot;other&quot;     &quot;our&quot;      
+##  [71] &quot;out&quot;       &quot;over&quot;      &quot;re&quot;        &quot;same&quot;      &quot;should&quot;   
+##  [76] &quot;since&quot;     &quot;so&quot;        &quot;some&quot;      &quot;still&quot;     &quot;such&quot;     
+##  [81] &quot;take&quot;      &quot;than&quot;      &quot;that&quot;      &quot;the&quot;       &quot;then&quot;     
+##  [86] &quot;there&quot;     &quot;these&quot;     &quot;they&quot;      &quot;them&quot;      &quot;this&quot;     
+##  [91] &quot;those&quot;     &quot;through&quot;   &quot;to&quot;        &quot;too&quot;       &quot;up&quot;       
+##  [96] &quot;use&quot;       &quot;way&quot;       &quot;well&quot;      &quot;went&quot;      &quot;were&quot;     
+## [101] &quot;what&quot;      &quot;when&quot;      &quot;where&quot;     &quot;which&quot;     &quot;while&quot;    
+## [106] &quot;will&quot;      &quot;wont&quot;      &quot;baby&quot;      &quot;back&quot;      &quot;cause&quot;    
+## [111] &quot;don&quot;       &quot;down&quot;      &quot;ever&quot;      &quot;every&quot;     &quot;go&quot;       
+## [116] &quot;gonna&quot;     &quot;good&quot;      &quot;hey&quot;       &quot;him&quot;       &quot;know&quot;     
+## [121] &quot;let&quot;       &quot;love&quot;      &quot;no&quot;        &quot;not&quot;       &quot;now&quot;      
+## [126] &quot;oh&quot;        &quot;one&quot;       &quot;said&quot;      &quot;say&quot;       &quot;she&quot;      
+## [131] &quot;thing&quot;     &quot;ve&quot;        &quot;was&quot;       &quot;yeah&quot;      &quot;again&quot;    
+## [136] &quot;ain&quot;       &quot;am&quot;        &quot;around&quot;    &quot;away&quot;      &quot;day&quot;      
+## [141] &quot;everybody&quot; &quot;feel&quot;      &quot;keep&quot;      &quot;life&quot;      &quot;little&quot;   
+## [146] &quot;long&quot;      &quot;look&quot;      &quot;man&quot;       &quot;never&quot;     &quot;night&quot;    
+## [151] &quot;ooh&quot;       &quot;right&quot;     &quot;see&quot;       &quot;time&quot;      &quot;want&quot;     
+## [156] &quot;who&quot;       &quot;woman&quot;     &quot;yes&quot;       &quot;with&quot;      &quot;would&quot;    
+## [161] &quot;you&quot;       &quot;your&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <article data-timings="">
+    <p>Then through extensive data cleansing, identified the top 40 words from each genre and chose 72 total from them identifying words per genre, and then applied a random forest, which isn&#39;t very accurate at all. 
+<br>
+Overall Statistics</p>
+
+<pre><code>           Accuracy : 0.2678          
+             95% CI : (0.2222, 0.3174)
+No Information Rate : 0.2678          
+P-Value [Acc &gt; NIR] : 0.5203          
+</code></pre>
+
+<hr>
+
+<p>The Shiny App that illustrates this model and the associated github directory containing the full code are:</p>
+
+<p><a href="http://joellieser.shinyapps.io/developingDataProducts">http://joellieser.shinyapps.io/developingDataProducts</a></p>
+
+<p><a href="https://github.com/joellieser/DevelopingDataProducts/">https://github.com/joellieser/DevelopingDataProducts/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title=''>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title=''>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title=''>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title=''>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
